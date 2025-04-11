@@ -1,7 +1,17 @@
+server:
+  port: 8034
 spring:
   application:
     name: eshop-backend
-
-server:
-  port: 8034
-
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update

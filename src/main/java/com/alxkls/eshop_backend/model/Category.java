@@ -1,8 +1,7 @@
 package com.alxkls.eshop_backend.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +14,8 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Category {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
 
