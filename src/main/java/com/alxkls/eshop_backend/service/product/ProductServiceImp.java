@@ -112,6 +112,6 @@ public class ProductServiceImp implements ProductService {
 
   @Override
   public Long countByNameAndBrand(String productName, String brandName) {
-    return productRepo.countByNameAndBrand();
+    return productRepo.countByNameAndBrand(productName, brandName);
   }
 }
