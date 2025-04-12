@@ -1,9 +1,14 @@
 package com.alxkls.eshop_backend.service.product;
 
 import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
+import com.alxkls.eshop_backend.model.Category;
 import com.alxkls.eshop_backend.model.Product;
+import com.alxkls.eshop_backend.repository.category.CategoryRepository;
 import com.alxkls.eshop_backend.repository.product.ProductRepository;
+import com.alxkls.eshop_backend.requests.AddProductRequest;
+import com.alxkls.eshop_backend.requests.UpdateProductRequest;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +17,25 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImp implements ProductService {
 
   private final ProductRepository productRepo; // using final with constructor will inject this bean
+  private final CategoryRepository categoryRepo;
 
   @Override
-  public void addProduct(Product product) {
+  public Product addProduct(AddProductRequest request) {
+    Category category =
+        Optional.ofNullable(categoryRepo.findByName(request.getCategory().getName()))
+            .orElseGet(() -> categoryRepo.save(new Category(request.getCategory().getName())));
+
+    return createProductFromRequest(request, category);
+  }
+
+  private Product createProductFromRequest(AddProductRequest request, Category category) {
+    return new Product(
+        request.getName(),
+        request.getBrand(),
+        request.getInventory(),
+        request.getPrice(),
+        request.getDescription(),
+        category);
   }
 
   @Override
@@ -36,7 +57,28 @@ public class ProductServiceImp implements ProductService {
   }
 
   @Override
-  public void updateProduct(Product product, Long id) {}
+  public Product updateProduct(UpdateProductRequest request, Long id) {
+
+    return productRepo
+        .findById(id)
+        .map(existingProduct -> updateExistingProductUsingRequest(existingProduct, request))
+        .map(productRepo::save)
+        .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
+  }
+
+  private Product updateExistingProductUsingRequest(
+      Product existingProduct, UpdateProductRequest request) {
+    existingProduct.setName(request.getName());
+    existingProduct.setBrand(request.getBrand());
+    existingProduct.setPrice(request.getPrice());
+    existingProduct.setDescription(request.getDescription());
+    existingProduct.setInventory(request.getInventory());
+
+    Category category = categoryRepo.findByName(request.getCategory().getName());
+    existingProduct.setCategory(category);
+
+    return existingProduct;
+  }
 
   @Override
   public List<Product> getAllProducts() {

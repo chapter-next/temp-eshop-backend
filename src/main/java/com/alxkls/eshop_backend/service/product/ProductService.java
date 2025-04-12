@@ -2,16 +2,19 @@ package com.alxkls.eshop_backend.service.product;
 
 import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
 import com.alxkls.eshop_backend.model.Product;
+import com.alxkls.eshop_backend.requests.AddProductRequest;
+import com.alxkls.eshop_backend.requests.UpdateProductRequest;
+
 import java.util.List;
 
 public interface ProductService {
-  void addProduct(Product product);
+  Product addProduct(AddProductRequest product);
 
   Product getProductById(Long id);
 
   void deleteProductById(Long id);
 
-  void updateProduct(Product product, Long id);
+  Product updateProduct(UpdateProductRequest product, Long id);
 
   List<Product> getAllProducts();
 
