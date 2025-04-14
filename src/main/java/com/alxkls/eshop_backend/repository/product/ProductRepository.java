@@ -6,15 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findAllByCategoryNameAndBrand(String categoryName, String brandName);
+  List<Product> findAllByCategoryNameAndBrand(String categoryName, String brandName);
 
-    List<Product> findAllByNameAndBrand(String productName, String brandName);
+  List<Product> findAllByNameAndBrand(String productName, String brandName);
 
-    List<Product> findAllByName(String productName);
+  List<Product> findAllByName(String productName);
 
-    List<Product> findAllByBrand(String brandName);
+  List<Product> findAllByBrand(String brandName);
 
-    List<Product> findAllByCategoryName(String categoryName);
+  List<Product> findAllByCategoryName(String categoryName);
 
-    Long countByNameAndBrand(String name, String brand);
+  Long countByNameAndBrand(String name, String brand);
 }

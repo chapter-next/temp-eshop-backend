@@ -11,11 +11,13 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Category {
-  @OneToMany( mappedBy="category")
+  @OneToMany(mappedBy = "category")
   List<Product> products;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String name;
 
   public Category(String name) {

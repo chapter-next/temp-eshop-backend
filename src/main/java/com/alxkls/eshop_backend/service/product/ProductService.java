@@ -1,10 +1,8 @@
 package com.alxkls.eshop_backend.service.product;
 
-import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
 import com.alxkls.eshop_backend.model.Product;
 import com.alxkls.eshop_backend.requests.AddProductRequest;
 import com.alxkls.eshop_backend.requests.UpdateProductRequest;
-
 import java.util.List;
 
 public interface ProductService {
@@ -23,6 +21,7 @@ public interface ProductService {
   List<Product> getProductsByBrand(String brandName);
 
   List<Product> getProductsByName(String productName);
+
   List<Product> getProductsByNameAndBrand(String productName, String brandName);
 
   List<Product> getProductsByCategoryAndBrand(String categoryName, String brandName);

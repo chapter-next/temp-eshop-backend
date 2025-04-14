@@ -1,9 +1,8 @@
 package com.alxkls.eshop_backend.requests;
 
 import com.alxkls.eshop_backend.model.Category;
-import lombok.Data;
-
 import java.math.BigDecimal;
+import lombok.Data;
 
 @Data
 public class UpdateProductRequest {

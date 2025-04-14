@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImp implements CategoryService {
 
   private final CategoryRepository categoryRepo; // injected via constructor
 
