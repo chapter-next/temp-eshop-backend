@@ -1,6 +1,7 @@
 package com.alxkls.eshop_backend.service.product;
 
 import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
+import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.Category;
 import com.alxkls.eshop_backend.model.Product;
 import com.alxkls.eshop_backend.repository.category.CategoryRepository;
@@ -42,7 +43,7 @@ public class ProductServiceImp implements ProductService {
   public Product getProductById(Long id) {
     return productRepo
         .findById(id)
-        .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
+        .orElseThrow(() -> new ResourceNotFoundException("Product not found!"));
   }
 
   @Override
@@ -52,7 +53,7 @@ public class ProductServiceImp implements ProductService {
         .ifPresentOrElse(
             productRepo::delete,
             () -> {
-              throw new ProductNotFoundException("Product now found!");
+              throw new ResourceNotFoundException("Product now found!");
             });
   }
 

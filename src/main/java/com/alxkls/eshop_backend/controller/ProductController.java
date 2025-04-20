@@ -3,6 +3,7 @@ package com.alxkls.eshop_backend.controller;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
+import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.Product;
 import com.alxkls.eshop_backend.requests.AddProductRequest;
 import com.alxkls.eshop_backend.requests.UpdateProductRequest;
@@ -108,7 +109,7 @@ public class ProductController {
     try {
       Product theProduct = operation.get();
       return ResponseEntity.ok(new ApiResponse("Success", theProduct));
-    } catch (ProductNotFoundException e) {
+    } catch (ResourceNotFoundException e) {
       return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Not Found", null));
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(new ApiResponse("Error", null));
