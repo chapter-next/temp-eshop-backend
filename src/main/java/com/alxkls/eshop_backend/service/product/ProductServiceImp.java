@@ -26,7 +26,7 @@ public class ProductServiceImp implements ProductService {
         Optional.ofNullable(categoryRepo.findByName(request.getCategory().getName()))
             .orElseGet(() -> categoryRepo.save(new Category(request.getCategory().getName())));
 
-    return createProductFromRequest(request, category);
+    return productRepo.save(createProductFromRequest(request, category));
   }
 
   private Product createProductFromRequest(AddProductRequest request, Category category) {

@@ -1,5 +1,6 @@
 package com.alxkls.eshop_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Entity
 public class Category {
   @OneToMany(mappedBy = "category")
+  @JsonIgnore
   List<Product> products;
 
   @Id
