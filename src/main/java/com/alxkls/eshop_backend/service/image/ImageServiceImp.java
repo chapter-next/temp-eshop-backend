@@ -79,16 +79,15 @@ public class ImageServiceImp implements ImageService {
       } catch (SQLException | IOException e) {
         throw new RuntimeException(e);
       }
-      savedImage.setDownloadUrl(String.format(DOWNLOAD_PATH_PATTERN, savedImage.getId()));
+      savedImage.setDownloadPath(String.format(DOWNLOAD_PATH_PATTERN, savedImage.getId()));
       savedImage = imageRepo.save(savedImage);
-      savedImages.add(
-          ImageDto.builder()
-              .imageName(savedImage.getFileName())
-              .downloadPath(savedImage.getDownloadUrl())
-              .id(savedImage.getId())
-              .build());
-    }
+      ImageDto imageDto = new ImageDto();
+      imageDto.setId(savedImage.getId());
+      imageDto.setDownloadPath(savedImage.getDownloadPath());
+      imageDto.setFileName(savedImage.getFileName());
+      savedImages.add(imageDto);
 
+    }
     return savedImages;
   }
 }

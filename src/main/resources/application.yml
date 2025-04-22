@@ -1,6 +1,10 @@
 server:
   port: 8034
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
   application:
     name: eshop-backend
   datasource:

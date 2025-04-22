@@ -1,5 +1,6 @@
 package com.alxkls.eshop_backend.service.product;
 
+import com.alxkls.eshop_backend.dto.ProductDto;
 import com.alxkls.eshop_backend.model.Product;
 import com.alxkls.eshop_backend.requests.AddProductRequest;
 import com.alxkls.eshop_backend.requests.UpdateProductRequest;
@@ -27,4 +28,6 @@ public interface ProductService {
   List<Product> getProductsByCategoryAndBrand(String categoryName, String brandName);
 
   Long countByNameAndBrand(String productName, String brandName);
+
+  ProductDto convertProductToProductDto(Product product);
 }

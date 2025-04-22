@@ -2,9 +2,6 @@ package com.alxkls.eshop_backend.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
-import org.hibernate.type.UserComponentType;
-import org.hibernate.type.descriptor.java.BlobJavaType;
 
 
 import java.sql.Blob;
@@ -23,7 +20,7 @@ public class Image {
 
   private String fileName;
   private String fileType;
-  private String downloadUrl;
+  private String downloadPath;
 
   @Lob
   private Blob blob;

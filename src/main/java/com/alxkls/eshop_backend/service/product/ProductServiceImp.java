@@ -1,5 +1,7 @@
 package com.alxkls.eshop_backend.service.product;
 
+import com.alxkls.eshop_backend.dto.ImageDto;
+import com.alxkls.eshop_backend.dto.ProductDto;
 import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
 import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.Category;
@@ -8,9 +10,11 @@ import com.alxkls.eshop_backend.repository.category.CategoryRepository;
 import com.alxkls.eshop_backend.repository.product.ProductRepository;
 import com.alxkls.eshop_backend.requests.AddProductRequest;
 import com.alxkls.eshop_backend.requests.UpdateProductRequest;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -19,6 +23,7 @@ public class ProductServiceImp implements ProductService {
 
   private final ProductRepository productRepo; // using final with constructor will inject this bean
   private final CategoryRepository categoryRepo;
+  private final ModelMapper modelMapper;
 
   @Override
   public Product addProduct(AddProductRequest request) {
@@ -114,5 +119,21 @@ public class ProductServiceImp implements ProductService {
   @Override
   public Long countByNameAndBrand(String productName, String brandName) {
     return productRepo.countByNameAndBrand(productName, brandName);
+  }
+
+  @Override
+  public ProductDto convertProductToProductDto(Product product) {
+    ProductDto productDto = modelMapper.map(product, ProductDto.class);
+
+
+    Optional.ofNullable(product.getImages())
+        .ifPresentOrElse(
+            images -> {
+              productDto.setImages(
+                  images.stream().map(image -> modelMapper.map(image, ImageDto.class)).toList());
+            },
+            () -> productDto.setImages(Collections.emptyList()));
+
+    return productDto;
   }
 }

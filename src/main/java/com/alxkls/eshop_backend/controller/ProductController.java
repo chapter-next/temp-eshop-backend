@@ -2,6 +2,7 @@ package com.alxkls.eshop_backend.controller;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import com.alxkls.eshop_backend.dto.ProductDto;
 import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
 import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.Product;
@@ -95,7 +96,8 @@ public class ProductController {
 
   private ResponseEntity<ApiResponse> runFindByRequest(Supplier<List<Product>> operation) {
     try {
-      List<Product> products = operation.get();
+      List<ProductDto> products =
+          operation.get().stream().map(productService::convertProductToProductDto).toList();
       if (products.isEmpty()) {
         return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Not Found", null));
       }
@@ -107,7 +109,7 @@ public class ProductController {
 
   private ResponseEntity<ApiResponse> runRequest(Supplier<Product> operation) {
     try {
-      Product theProduct = operation.get();
+      ProductDto theProduct = productService.convertProductToProductDto(operation.get());
       return ResponseEntity.ok(new ApiResponse("Success", theProduct));
     } catch (ResourceNotFoundException e) {
       return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Not Found", null));
