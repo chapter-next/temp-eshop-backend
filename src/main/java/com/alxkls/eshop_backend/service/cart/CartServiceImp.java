@@ -42,4 +42,9 @@ public class CartServiceImp implements CartService {
 
     return getCart(cartId).getTotalPrice();
   }
+
+  @Override
+  public Long initializeNewCart() {
+      return cartRepository.save(new Cart()).getId();
+  }
 }
