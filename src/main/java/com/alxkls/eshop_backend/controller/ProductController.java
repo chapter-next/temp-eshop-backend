@@ -112,7 +112,7 @@ public class ProductController {
       ProductDto theProduct = productService.convertProductToProductDto(operation.get());
       return ResponseEntity.ok(new ApiResponse("Success", theProduct));
     } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Not Found", null));
+      return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(new ApiResponse("Error", null));
     }
