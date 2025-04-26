@@ -43,6 +43,6 @@ public class CartController {
 
   @GetMapping("/cart/{cartId}/total-price")
   public ResponseEntity<ApiResponse> getTotalPrice(@PathVariable Long cartId) {
-    return runRequest(() -> getTotalPrice(cartId));
+    return runRequest(() -> cartService.getTotalPrice(cartId));
   }
 }

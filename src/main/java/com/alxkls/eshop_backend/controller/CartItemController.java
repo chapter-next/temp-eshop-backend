@@ -30,12 +30,14 @@ public class CartItemController {
 
   @PostMapping("/add-item")
   public ResponseEntity<ApiResponse> addItemToCart(
-      @RequestParam Long cartId, @RequestParam Long productId, int quantity) {
-    if (cartId == null || cartId <= 0){
-      return runRequest(() -> cartItemService.addItemToCart(cartService.initializeNewCart(), productId, quantity));
-    }else {
+      @RequestParam(required = false) Long cartId, @RequestParam Long productId, int quantity) {
+    if (cartId == null || cartId <= 0) {
+      return runRequest(
+          () ->
+              cartItemService.addItemToCart(cartService.initializeNewCart(), productId, quantity));
+    } else {
 
-    return runRequest(() -> cartItemService.addItemToCart(cartId, productId, quantity));
+      return runRequest(() -> cartItemService.addItemToCart(cartId, productId, quantity));
     }
   }
 
@@ -45,7 +47,7 @@ public class CartItemController {
     return runRequest(() -> cartItemService.removeItemFromCart(cartId, productId));
   }
 
-  @PutMapping("/add-item")
+  @PutMapping("/update-quantity")
   public ResponseEntity<ApiResponse> updateItemQuantity(
       @RequestParam Long cartId, @RequestParam Long productId, int quantity) {
     return runRequest(() -> cartItemService.updateItemQuantity(cartId, productId, quantity));

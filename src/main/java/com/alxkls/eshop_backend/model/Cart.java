@@ -25,13 +25,15 @@ public class Cart {
   private Set<CartItem> cartItems;
 
   public BigDecimal calculateTotalPrice() {
-    return cartItems.stream()
-        .map(
-            item -> {
-              item.setTotalPrice();
-              return item.getTotalPrice();
-            })
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
+    return cartItems == null
+        ? BigDecimal.ZERO
+        : cartItems.stream()
+            .map(
+                item -> {
+                  item.setTotalPrice();
+                  return item.getTotalPrice();
+                })
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
   public void addItem(CartItem cartItem) {
@@ -40,11 +42,11 @@ public class Cart {
     updateTotalPrice();
   }
 
-    private void updateTotalPrice() {
-      setTotalPrice(calculateTotalPrice());
-    }
+  private void updateTotalPrice() {
+    setTotalPrice(calculateTotalPrice());
+  }
 
-    public void removeItem(CartItem cartItem) {
+  public void removeItem(CartItem cartItem) {
 
     cartItems.remove(cartItem);
     cartItem.setCart(null);
