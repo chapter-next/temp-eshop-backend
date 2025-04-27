@@ -2,7 +2,6 @@ package com.alxkls.eshop_backend.model;
 
 import com.alxkls.eshop_backend.enums.OrderStatus;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;

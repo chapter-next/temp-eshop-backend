@@ -34,11 +34,10 @@ public class OrderServiceImp implements OrderService {
     Order savedOrder = orderRepository.save(userOrder);
     cartService.clearCart(userCart.getId());
 
-
     return savedOrder;
   }
 
-  private Order createOrder(Cart cart){
+  private Order createOrder(Cart cart) {
     Order order = new Order();
     order.setUser(cart.getUser());
     order.setOrderDateTime(LocalDate.now());
@@ -47,12 +46,15 @@ public class OrderServiceImp implements OrderService {
   }
 
   private List<OrderItem> createOrderItems(Order order, Cart cart) {
-    return cart.getCartItems().stream().map( cartItem -> {
-      Product product = cartItem.getProduct();
-      product.setInventory(product.getInventory() - cartItem.getQuantity());
-      productRepository.save(product);
-      return new OrderItem( product,order, cartItem.getQuantity(), cartItem.getUnitPrice());
-    }).toList();
+    return cart.getCartItems().stream()
+        .map(
+            cartItem -> {
+              Product product = cartItem.getProduct();
+              product.setInventory(product.getInventory() - cartItem.getQuantity());
+              productRepository.save(product);
+              return new OrderItem(product, order, cartItem.getQuantity(), cartItem.getUnitPrice());
+            })
+        .toList();
   }
 
   private BigDecimal getOrderTotalAmount(List<OrderItem> orderItems) {
@@ -69,7 +71,7 @@ public class OrderServiceImp implements OrderService {
   }
 
   @Override
-  public List<Order> getUserOrders(Long userId){
+  public List<Order> getUserOrders(Long userId) {
     return orderRepository.findAllByUserId(userId);
   }
 }

@@ -1,7 +1,6 @@
 package com.alxkls.eshop_backend.service.order;
 
 import com.alxkls.eshop_backend.model.Order;
-
 import java.util.List;
 
 public interface OrderService {
