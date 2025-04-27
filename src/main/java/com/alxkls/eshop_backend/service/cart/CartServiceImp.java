@@ -49,4 +49,9 @@ public class CartServiceImp implements CartService {
   public Long initializeNewCart() {
     return cartRepository.save(new Cart()).getId();
   }
+
+  @Override
+  public Cart getUserCart(Long userId) {
+    return cartRepository.findByUserId(userId);
+  }
 }
