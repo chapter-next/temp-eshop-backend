@@ -16,26 +16,25 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CartItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private int quantity ;
+  private int quantity;
 
-    private BigDecimal unitPrice;
-    private BigDecimal totalPrice;
+  private BigDecimal unitPrice;
+  private BigDecimal totalPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+  @ManyToOne
+  @JoinColumn(name = "product_id")
+  private Product product;
 
+  @JsonIgnore
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "cart_id")
+  private Cart cart;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
-    public void setTotalPrice() {
-        this.totalPrice = this.unitPrice.multiply(BigDecimal.valueOf(quantity));
-    }
+  public void setTotalPrice() {
+    this.totalPrice = this.unitPrice.multiply(BigDecimal.valueOf(quantity));
+  }
 }

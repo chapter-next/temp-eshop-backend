@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class UpdateProductRequest {
-    private String name;
-    private String brand;
-    private long inventory;
-    private BigDecimal price;
-    private String description;
-    private Category category;
+  private String name;
+  private String brand;
+  private long inventory;
+  private BigDecimal price;
+  private String description;
+  private Category category;
 }

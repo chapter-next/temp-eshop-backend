@@ -47,6 +47,6 @@ public class CartServiceImp implements CartService {
 
   @Override
   public Long initializeNewCart() {
-      return cartRepository.save(new Cart()).getId();
+    return cartRepository.save(new Cart()).getId();
   }
 }

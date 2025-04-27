@@ -125,7 +125,6 @@ public class ProductServiceImp implements ProductService {
   public ProductDto convertProductToProductDto(Product product) {
     ProductDto productDto = modelMapper.map(product, ProductDto.class);
 
-
     Optional.ofNullable(product.getImages())
         .ifPresentOrElse(
             images -> {

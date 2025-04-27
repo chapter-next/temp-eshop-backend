@@ -62,21 +62,21 @@ public class ImageController {
   public ResponseEntity<ApiResponse> updateImage(
       @PathVariable Long imageId, @RequestParam MultipartFile file) {
 
-      try {
-          Image image = imageService.getImageById(imageId);
-          if (image != null) {
-            imageService.updateImage(file, imageId);
-            return ResponseEntity.ok(new ApiResponse("Update successful", null));
-          }
-      } catch (ResourceNotFoundException e) {
-        return ResponseEntity.status(NOT_FOUND).body (new ApiResponse(e.getMessage(), null));
+    try {
+      Image image = imageService.getImageById(imageId);
+      if (image != null) {
+        imageService.updateImage(file, imageId);
+        return ResponseEntity.ok(new ApiResponse("Update successful", null));
       }
+    } catch (ResourceNotFoundException e) {
+      return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
+    }
 
-      return ResponseEntity.internalServerError().body(new ApiResponse("Update failed", null));
+    return ResponseEntity.internalServerError().body(new ApiResponse("Update failed", null));
   }
+
   @DeleteMapping("/image/{imageId}/delete")
-  public ResponseEntity<ApiResponse> deleteImage(
-          @PathVariable Long imageId) {
+  public ResponseEntity<ApiResponse> deleteImage(@PathVariable Long imageId) {
 
     try {
       Image image = imageService.getImageById(imageId);
@@ -85,7 +85,7 @@ public class ImageController {
         return ResponseEntity.ok(new ApiResponse("Delete successful", null));
       }
     } catch (ResourceNotFoundException e) {
-      return ResponseEntity.status(NOT_FOUND).body (new ApiResponse(e.getMessage(), null));
+      return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
     }
 
     return ResponseEntity.internalServerError().body(new ApiResponse("Delete failed", null));

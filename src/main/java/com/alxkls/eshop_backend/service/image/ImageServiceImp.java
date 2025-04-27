@@ -86,7 +86,6 @@ public class ImageServiceImp implements ImageService {
       imageDto.setDownloadPath(savedImage.getDownloadPath());
       imageDto.setFileName(savedImage.getFileName());
       savedImages.add(imageDto);
-
     }
     return savedImages;
   }

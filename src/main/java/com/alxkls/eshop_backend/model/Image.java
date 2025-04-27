@@ -1,10 +1,8 @@
 package com.alxkls.eshop_backend.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-
-
 import java.sql.Blob;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,8 +20,7 @@ public class Image {
   private String fileType;
   private String downloadPath;
 
-  @Lob
-  private Blob blob;
+  @Lob private Blob blob;
 
   @ManyToOne
   @JoinColumn(name = "product_id")

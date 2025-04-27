@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ApiResponse { // does it make sense to use Records instead for this?
-    private String message;
-    private Object data;
+  private String message;
+  private Object data;
 }
-
