@@ -1,5 +1,6 @@
 package com.alxkls.eshop_backend.service.order;
 
+import com.alxkls.eshop_backend.dto.OrderDto;
 import com.alxkls.eshop_backend.enums.OrderStatus;
 import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.Cart;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import com.alxkls.eshop_backend.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,7 @@ public class OrderServiceImp implements OrderService {
   private final OrderRepository orderRepository;
   private final ProductRepository productRepository;
   private final CartService cartService;
+  private final ModelMapper modelMapper;
 
   @Override
   public Order placeOrder(Long userId) {
@@ -74,4 +77,9 @@ public class OrderServiceImp implements OrderService {
   public List<Order> getUserOrders(Long userId) {
     return orderRepository.findAllByUserId(userId);
   }
+
+  @Override
+  public OrderDto convertToOrderDto(Order order){
+    return modelMapper.map(order, OrderDto.class);
+}
 }
