@@ -30,15 +30,12 @@ public class CartItemController {
 
   @PostMapping("/add-item")
   public ResponseEntity<ApiResponse> addItemToCart(
-      @RequestParam(required = false) Long cartId, @RequestParam Long productId, int quantity) {
-    if (cartId == null || cartId <= 0) {
-      return runRequest(
-          () ->
-              cartItemService.addItemToCart(cartService.initializeNewCart(), productId, quantity));
-    } else {
+      @RequestParam Long userId, @RequestParam Long productId, int quantity) {
 
-      return runRequest(() -> cartItemService.addItemToCart(cartId, productId, quantity));
-    }
+    return runRequest(
+        () ->
+            cartItemService.addItemToCart(
+                cartService.getOrInitializeUserCart(userId).getId(), productId, quantity));
   }
 
   @DeleteMapping("/remove-item")

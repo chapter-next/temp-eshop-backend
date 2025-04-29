@@ -2,9 +2,12 @@ package com.alxkls.eshop_backend.service.cart;
 
 import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.Cart;
+import com.alxkls.eshop_backend.model.User;
 import com.alxkls.eshop_backend.repository.cart.CartItemRepository;
 import com.alxkls.eshop_backend.repository.cart.CartRepository;
+import com.alxkls.eshop_backend.service.user.UserService;
 import java.math.BigDecimal;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +18,7 @@ public class CartServiceImp implements CartService {
 
   private final CartRepository cartRepository;
   private final CartItemRepository cartItemRepository;
+  private final UserService userService;
 
   @Override
   public Cart getCart(Long cartId) {
@@ -53,5 +57,17 @@ public class CartServiceImp implements CartService {
   @Override
   public Cart getUserCart(Long userId) {
     return cartRepository.findByUserId(userId);
+  }
+
+  @Override
+  public Cart getOrInitializeUserCart(Long userId) {
+    User user = userService.getUser(userId);
+    return Optional.ofNullable(cartRepository.findByUserId(user.getId()))
+        .orElseGet(
+            () -> {
+              Cart cart = new Cart();
+              cart.setUser(user);
+              return cartRepository.save(cart);
+            });
   }
 }
