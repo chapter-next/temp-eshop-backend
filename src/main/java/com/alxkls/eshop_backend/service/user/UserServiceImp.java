@@ -1,5 +1,6 @@
 package com.alxkls.eshop_backend.service.user;
 
+import com.alxkls.eshop_backend.dto.UserDto;
 import com.alxkls.eshop_backend.exceptions.AlreadyExistsException;
 import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.User;
@@ -8,12 +9,14 @@ import com.alxkls.eshop_backend.requests.CreateUserRequest;
 import com.alxkls.eshop_backend.requests.UpdateUserRequest;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService {
   private final UserRepository userRepository;
+  private final ModelMapper modelMapper;
 
   @Override
   public User getUser(Long userId) {
@@ -63,5 +66,10 @@ public class UserServiceImp implements UserService {
             () -> {
               throw new ResourceNotFoundException("User not found!");
             });
+  }
+
+  @Override
+  public UserDto converToUserDto(User user){
+      return modelMapper.map(user, UserDto.class);
   }
 }
