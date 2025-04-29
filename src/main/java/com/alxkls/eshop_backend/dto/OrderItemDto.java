@@ -10,5 +10,5 @@ public class OrderItemDto {
   private int quantity;
   private BigDecimal itemPrice;
 
-  private ProductDto itemProduct;
+  private ProductDto product;
 }

@@ -20,15 +20,15 @@ public class OrderItem {
 
   @ManyToOne
   @JoinColumn(name = "product_id")
-  private Product itemProduct;
+  private Product product;
 
-  @ManyToOne
-  @JoinColumn(name = "order_id")
-  private Order itemOrder;
+  @ManyToOne()
+  @JoinColumn(name = "order_qid")
+  private Order order;
 
-  public OrderItem(Product itemProduct, Order itemOrder, int quantity, BigDecimal itemPrice) {
-    this.itemProduct = itemProduct;
-    this.itemOrder = itemOrder;
+  public OrderItem(Product product, Order order, int quantity, BigDecimal itemPrice) {
+    this.product = product;
+    this.order = order;
     this.quantity = quantity;
     this.itemPrice = itemPrice;
   }
