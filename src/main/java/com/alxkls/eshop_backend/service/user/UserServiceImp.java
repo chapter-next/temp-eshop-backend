@@ -69,7 +69,7 @@ public class UserServiceImp implements UserService {
   }
 
   @Override
-  public UserDto converToUserDto(User user){
-      return modelMapper.map(user, UserDto.class);
+  public UserDto converToUserDto(User user) {
+    return modelMapper.map(user, UserDto.class);
   }
 }

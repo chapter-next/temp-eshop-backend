@@ -79,7 +79,7 @@ public class OrderServiceImp implements OrderService {
   }
 
   @Override
-  public OrderDto convertToOrderDto(Order order){
+  public OrderDto convertToOrderDto(Order order) {
     return modelMapper.map(order, OrderDto.class);
-}
+  }
 }

@@ -1,6 +1,5 @@
 package com.alxkls.eshop_backend.dto;
 
-import com.alxkls.eshop_backend.model.Cart;
 import java.util.List;
 import lombok.Data;
 

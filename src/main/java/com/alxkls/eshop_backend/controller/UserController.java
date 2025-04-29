@@ -31,18 +31,20 @@ public class UserController {
   }
 
   @PutMapping("/user/{userId}/update")
-  public ResponseEntity<ApiResponse> updateUser(@PathVariable Long userId ,@RequestBody UpdateUserRequest updateUserRequest){
-    return runRequest(() -> userService.converToUserDto(userService.updateUser(userId, updateUserRequest)));
+  public ResponseEntity<ApiResponse> updateUser(
+      @PathVariable Long userId, @RequestBody UpdateUserRequest updateUserRequest) {
+    return runRequest(
+        () -> userService.converToUserDto(userService.updateUser(userId, updateUserRequest)));
   }
 
   @DeleteMapping("/user/{userId}/delete")
-  public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId){
+  public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId) {
     return runRequest(
         () -> {
           userService.deleteUser(userId);
           return null;
         });
-}
+  }
 
   private <T> ResponseEntity<ApiResponse> runRequest(Supplier<T> operation) {
     try {
