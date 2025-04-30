@@ -29,7 +29,7 @@ public class CartController {
   @GetMapping("/cart/{cartId}")
   public ResponseEntity<ApiResponse> getCart(@PathVariable Long cartId) {
 
-    return runRequest(() -> cartService.getCart(cartId));
+    return runRequest(() -> cartService.convertToCArtDto(cartService.getCart(cartId)));
   }
 
   @DeleteMapping("/cart/{cartId}/clear")

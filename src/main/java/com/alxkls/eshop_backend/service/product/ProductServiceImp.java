@@ -2,6 +2,7 @@ package com.alxkls.eshop_backend.service.product;
 
 import com.alxkls.eshop_backend.dto.ImageDto;
 import com.alxkls.eshop_backend.dto.ProductDto;
+import com.alxkls.eshop_backend.exceptions.AlreadyExistsException;
 import com.alxkls.eshop_backend.exceptions.ProductNotFoundException;
 import com.alxkls.eshop_backend.exceptions.ResourceNotFoundException;
 import com.alxkls.eshop_backend.model.Category;
@@ -27,6 +28,11 @@ public class ProductServiceImp implements ProductService {
 
   @Override
   public Product addProduct(AddProductRequest request) {
+
+    if (productRepo.existsByName(request.getName())){
+      throw new AlreadyExistsException("Product '" + request.getName() + "' already exists");
+    }
+
     Category category =
         Optional.ofNullable(categoryRepo.findByName(request.getCategory().getName()))
             .orElseGet(() -> categoryRepo.save(new Category(request.getCategory().getName())));
@@ -74,11 +80,13 @@ public class ProductServiceImp implements ProductService {
 
   private Product updateExistingProductUsingRequest(
       Product existingProduct, UpdateProductRequest request) {
-    existingProduct.setName(request.getName());
-    existingProduct.setBrand(request.getBrand());
-    existingProduct.setPrice(request.getPrice());
-    existingProduct.setDescription(request.getDescription());
-    existingProduct.setInventory(request.getInventory());
+    existingProduct.setName(
+        Optional.ofNullable(request.getName()).orElse(existingProduct.getName()));
+    existingProduct.setBrand(Optional.ofNullable(request.getBrand()).orElse(existingProduct.getBrand()));
+    existingProduct.setPrice(Optional.ofNullable(request.getPrice()).orElse(existingProduct.getPrice()));
+    existingProduct.setDescription(
+        Optional.ofNullable(request.getDescription()).orElse(existingProduct.getDescription()));
+    existingProduct.setInventory(Optional.ofNullable(request.getInventory()).orElse(existingProduct.getInventory()));
 
     Category category = categoryRepo.findByName(request.getCategory().getName());
     existingProduct.setCategory(category);

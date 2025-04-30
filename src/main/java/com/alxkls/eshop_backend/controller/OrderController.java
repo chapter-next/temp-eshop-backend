@@ -26,7 +26,7 @@ public class OrderController {
     return runRequest(() -> orderService.convertToOrderDto(orderService.getOrder(orderId)));
   }
 
-  @GetMapping("/{userId}")
+  @GetMapping("/user/{userId}")
   public ResponseEntity<ApiResponse> getUserOrders(@PathVariable Long userId) {
 
     return runRequest(
