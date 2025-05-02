@@ -10,6 +10,9 @@ import com.alxkls.eshop_backend.requests.UpdateUserRequest;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImp implements UserService {
   private final UserRepository userRepository;
   private final ModelMapper modelMapper;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public User getUser(Long userId) {
@@ -34,7 +38,7 @@ public class UserServiceImp implements UserService {
               User user = new User();
               user.setEmail(req.getEmail());
               user.setUsername(req.getUsername());
-              user.setPassword(req.getPassword());
+              user.setPassword(passwordEncoder.encode( req.getPassword()));
               return userRepository.save(user);
             })
         .orElseThrow(
@@ -71,5 +75,13 @@ public class UserServiceImp implements UserService {
   @Override
   public UserDto converToUserDto(User user) {
     return modelMapper.map(user, UserDto.class);
+  }
+
+  @Override
+  public User getAuthenticatedUser() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String email = authentication.getName();
+
+    return userRepository.findByEmail(email);
   }
 }

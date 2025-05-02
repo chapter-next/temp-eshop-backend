@@ -29,7 +29,8 @@ public class ProductServiceImp implements ProductService {
   @Override
   public Product addProduct(AddProductRequest request) {
 
-    if (productRepo.existsByName(request.getName())){
+    if (productRepo.existsByNameAndBrandAndDescription(
+        request.getName(), request.getBrand(), request.getDescription())) {
       throw new AlreadyExistsException("Product '" + request.getName() + "' already exists");
     }
 
@@ -82,11 +83,14 @@ public class ProductServiceImp implements ProductService {
       Product existingProduct, UpdateProductRequest request) {
     existingProduct.setName(
         Optional.ofNullable(request.getName()).orElse(existingProduct.getName()));
-    existingProduct.setBrand(Optional.ofNullable(request.getBrand()).orElse(existingProduct.getBrand()));
-    existingProduct.setPrice(Optional.ofNullable(request.getPrice()).orElse(existingProduct.getPrice()));
+    existingProduct.setBrand(
+        Optional.ofNullable(request.getBrand()).orElse(existingProduct.getBrand()));
+    existingProduct.setPrice(
+        Optional.ofNullable(request.getPrice()).orElse(existingProduct.getPrice()));
     existingProduct.setDescription(
         Optional.ofNullable(request.getDescription()).orElse(existingProduct.getDescription()));
-    existingProduct.setInventory(Optional.ofNullable(request.getInventory()).orElse(existingProduct.getInventory()));
+    existingProduct.setInventory(
+        Optional.ofNullable(request.getInventory()).orElse(existingProduct.getInventory()));
 
     Category category = categoryRepo.findByName(request.getCategory().getName());
     existingProduct.setCategory(category);

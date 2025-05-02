@@ -33,7 +33,7 @@ public class User {
 
   @ManyToMany(
       fetch = FetchType.EAGER,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
   @JoinTable(
       name = "user_roles",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
