@@ -2,7 +2,6 @@ package com.alxkls.eshop_backend.service.cart;
 
 import com.alxkls.eshop_backend.dto.CartDto;
 import com.alxkls.eshop_backend.model.Cart;
-import com.alxkls.eshop_backend.model.User;
 import java.math.BigDecimal;
 
 public interface CartService {
@@ -17,5 +16,6 @@ public interface CartService {
   Cart getUserCart(Long userId);
 
   Cart getOrInitializeUserCart(Long userId);
+
   CartDto convertToCArtDto(Cart cart);
 }

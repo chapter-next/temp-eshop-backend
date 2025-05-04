@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("${api.prefix}")
 public class AuthNController {
   private final AuthenticationManager authenticationManager;
+
   @Value("${auth.secret}")
   private String secret;
 

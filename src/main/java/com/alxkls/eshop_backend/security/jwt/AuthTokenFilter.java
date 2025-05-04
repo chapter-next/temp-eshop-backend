@@ -21,8 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
-  @Autowired
-  private UserDetailsService userDetailsService;
+  @Autowired private UserDetailsService userDetailsService;
 
   @Override
   protected void doFilterInternal(
@@ -39,7 +38,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       SecurityContextHolder.getContext().setAuthentication(authN);
     } catch (JWTDecodeException | UsernameNotFoundException e) {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      //response.getWriter().write(e.getMessage());
+      // response.getWriter().write(e.getMessage());
     } catch (Exception e) {
       // TODO: Log statement
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

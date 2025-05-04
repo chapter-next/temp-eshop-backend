@@ -38,7 +38,7 @@ public class UserServiceImp implements UserService {
               User user = new User();
               user.setEmail(req.getEmail());
               user.setUsername(req.getUsername());
-              user.setPassword(passwordEncoder.encode( req.getPassword()));
+              user.setPassword(passwordEncoder.encode(req.getPassword()));
               return userRepository.save(user);
             })
         .orElseThrow(

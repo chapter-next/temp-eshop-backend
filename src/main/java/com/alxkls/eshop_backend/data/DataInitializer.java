@@ -6,7 +6,6 @@ import com.alxkls.eshop_backend.repository.role.RoleRepository;
 import com.alxkls.eshop_backend.repository.user.UserRepository;
 import java.util.List;
 import java.util.Set;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -16,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class DataInitializer implements ApplicationListener<ApplicationReadyEvent> {
+  private final static List<String> EMAILS = List.of("alex1@gmail.com", "alex2@gmail.com");
+  private final static List<String> ROLES = List.of("ROLE_ADMIN", "ROLE_USER");
   private final UserRepository userRepository;
   private final RoleRepository roleRepository;
   private final  PasswordEncoder passwordEncoder;
-  private final static List<String> EMAILS = List.of("alex1@gmail.com", "alex2@gmail.com");
-  private final static List<String> ROLES = List.of("ROLE_ADMIN", "ROLE_USER");
 
   @Override
   public void onApplicationEvent(ApplicationReadyEvent event) {

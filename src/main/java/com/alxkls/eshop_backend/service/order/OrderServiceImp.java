@@ -9,12 +9,11 @@ import com.alxkls.eshop_backend.model.OrderItem;
 import com.alxkls.eshop_backend.model.Product;
 import com.alxkls.eshop_backend.repository.order.OrderRepository;
 import com.alxkls.eshop_backend.repository.product.ProductRepository;
+import com.alxkls.eshop_backend.service.cart.CartService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
-
-import com.alxkls.eshop_backend.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

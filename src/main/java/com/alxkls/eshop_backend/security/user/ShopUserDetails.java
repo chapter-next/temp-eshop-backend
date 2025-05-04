@@ -24,9 +24,12 @@ public class ShopUserDetails implements UserDetails {
   private Collection<GrantedAuthority> authorities;
 
   public static ShopUserDetails createShopUserDetails(User user) {
-    List<GrantedAuthority> authorities = user.getRoles().stream().map( role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toUnmodifiableList());
+    List<GrantedAuthority> authorities =
+        user.getRoles().stream()
+            .map(role -> new SimpleGrantedAuthority(role.getName()))
+            .collect(Collectors.toUnmodifiableList());
 
-    return new ShopUserDetails(user.getId(), user.getEmail(), user.getPassword(),authorities);
+    return new ShopUserDetails(user.getId(), user.getEmail(), user.getPassword(), authorities);
   }
 
   @Override

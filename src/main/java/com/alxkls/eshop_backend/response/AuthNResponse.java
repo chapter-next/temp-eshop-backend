@@ -11,4 +11,3 @@ public class AuthNResponse {
   private Long id;
   private String token;
 }
-

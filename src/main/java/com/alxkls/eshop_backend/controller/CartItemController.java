@@ -28,7 +28,7 @@ public class CartItemController {
       return ResponseEntity.ok(new ApiResponse("Success", null));
     } catch (ResourceNotFoundException e) {
       return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
-    } catch (JWTDecodeException e){
+    } catch (JWTDecodeException e) {
       return ResponseEntity.status(UNAUTHORIZED).body(new ApiResponse("Unauthorized", null));
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(new ApiResponse("Error", null));
