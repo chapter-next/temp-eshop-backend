@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -56,6 +57,7 @@ public class ProductController {
         () -> productService.getProductsByCategoryAndBrand(categoryName, brandName));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping("add")
   public ResponseEntity<ApiResponse> addProduct(@RequestBody AddProductRequest addProductRequest) {
     return runRequest(() -> productService.addProduct(addProductRequest));
@@ -66,12 +68,14 @@ public class ProductController {
     return runRequest(() -> productService.getProductById(productId));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping("product/{productId}/update")
   public ResponseEntity<ApiResponse> updateProduct(
       @PathVariable Long productId, @RequestBody UpdateProductRequest updateProductRequest) {
     return runRequest(() -> productService.updateProduct(updateProductRequest, productId));
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping("product/{productId}/delete")
   public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long productId) {
     try {

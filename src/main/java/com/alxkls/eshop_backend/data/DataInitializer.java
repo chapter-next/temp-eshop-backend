@@ -20,7 +20,7 @@ public class DataInitializer implements ApplicationListener<ApplicationReadyEven
   private final RoleRepository roleRepository;
   private final  PasswordEncoder passwordEncoder;
   private final static List<String> EMAILS = List.of("alex1@gmail.com", "alex2@gmail.com");
-  private final static List<String> ROLES = List.of("admin", "user");
+  private final static List<String> ROLES = List.of("ROLE_ADMIN", "ROLE_USER");
 
   @Override
   public void onApplicationEvent(ApplicationReadyEvent event) {
@@ -46,7 +46,7 @@ public class DataInitializer implements ApplicationListener<ApplicationReadyEven
         user.setPassword(passwordEncoder.encode( "123456"));
         user.setUsername("Alex");
         user.setEmail(email);
-        user.setRoles(Set.of(roleRepository.findByName("user")));
+        user.setRoles(Set.of(roleRepository.findByName("ROLE_USER")));
         userRepository.save(user);
       }
     }
@@ -61,7 +61,7 @@ public class DataInitializer implements ApplicationListener<ApplicationReadyEven
       user.setPassword(passwordEncoder.encode( "123456"));
       user.setUsername("Admin");
       user.setEmail("admin@gmail.com");
-      user.setRoles(Set.of(roleRepository.findByName("admin")));
+      user.setRoles(Set.of(roleRepository.findByName("ROLE_ADMIN")));
       userRepository.save(user);
     }
 

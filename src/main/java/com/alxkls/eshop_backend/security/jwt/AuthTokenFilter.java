@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Optional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,9 +20,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-@RequiredArgsConstructor
 public class AuthTokenFilter extends OncePerRequestFilter {
-  private final UserDetailsService userDetailsService;
+  @Autowired
+  private UserDetailsService userDetailsService;
 
   @Override
   protected void doFilterInternal(
@@ -31,7 +32,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       throws ServletException, IOException {
 
     try {
-      String username = getSubFromJwt(getJwt(request));
+      String username = getSubFromJwt(getJwtFromRequest(request));
       UserDetails userDetails = userDetailsService.loadUserByUsername(username);
       Authentication authN =
           new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -46,7 +47,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
-  private String getJwt(HttpServletRequest request) throws JWTDecodeException {
+  private String getJwtFromRequest(HttpServletRequest request) throws JWTDecodeException {
     return Optional.ofNullable(request.getHeader("Authorization"))
         .filter(header -> StringUtils.hasText(header) && header.startsWith("Bearer"))
         .map(header -> header.substring(7))

@@ -31,3 +31,5 @@ springdoc:
   swagger-ui:
     path: /swagger-ui-custom.html
     operationsSorter: method
+auth:
+  secret: 124345
